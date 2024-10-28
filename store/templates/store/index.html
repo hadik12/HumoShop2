@@ -1,0 +1,61 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+<div class="section-slider">
+    <div class="swiper">
+        <div class="swiper-wrapper">
+            {% for slide in slider_images %}
+            <div class="swiper-slide">
+                <a href="{{ slide.url }}">
+                    <img src="{{ slide.image.url }}" alt="">
+                </a>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</div>
+
+<div class="section-categories">
+    <div class="swiper">
+        <div class="swiper-wrapper">
+            {% for category in categories %}
+            <button class="swiper-slide section-categories__item">
+                <span class="icon icon--{{ category.icon }}"></span>
+                <span class="section-categories__item-title">{{ category.name }}</span>
+            </button>
+            {% endfor %}
+        </div>
+    </div>
+</div>
+
+<div class="section-goods">
+    {% for category in categories %}
+    <div class="block-goods">
+        <div class="block-goods__header">
+            <div class="block-goods__header__title">{{ category.name }}</div>
+        </div>
+        <div class="block-goods__grid">
+            {% for product in category.product_set.all %}
+            <div class="product-item">
+                <a href="{% url 'store:product_detail' slug=product.slug %}">
+                    <div class="product-item__img">
+                        <img src="{{ product.image.url }}" alt="{{ product.name }}">
+                    </div>
+                    <div class="product-item__info">
+                        <div class="product-item__info__price">{{ product.price }} ₽</div>
+                        <div class="product-item__info__sizes">
+                            {% for size in product.get_sizes %}
+                            <div class="product-item__info__sizes__item">{{ size }}</div>
+                            {% endfor %}
+                        </div>
+                    </div>
+                    <div class="product-item__name">{{ product.name }}</div>
+                </a>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+    {% endfor %}
+</div>
+{% endblock %}

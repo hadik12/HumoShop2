@@ -1,0 +1,42 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+<div class="cart-page">
+    <h1>Корзина</h1>
+    {% if cart_items %}
+        <div class="cart-items">
+            {% for item in cart_items %}
+            <div class="cart-item" data-item-id="{{ item.id }}">
+                <div class="cart-item-image">
+                    <img src="{{ item.product.image.url }}" alt="{{ item.product.name }}">
+                </div>
+                <div class="cart-item-details">
+                    <h3>{{ item.product.name }}</h3>
+                    {% if item.size %}
+                    <p class="size">Размер: {{ item.size }}</p>
+                    {% endif %}
+                    <div class="quantity-controls">
+                        <button class="decrease">-</button>
+                        <input type="number" value="{{ item.quantity }}" min="1" class="quantity-input">
+                        <button class="increase">+</button>
+                    </div>
+                    <p class="price">{{ item.total_price }} ₽</p>
+                    <a href="{% url 'remove_from_cart' item.id %}" class="remove-item">Удалить</a>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+        <div class="cart-total">
+            <h2>Итого: {{ total }} ₽</h2>
+            <a href="{% url 'checkout' %}" class="checkout-button">Оформить заказ</a>
+        </div>
+    {% else %}
+        <p class="empty-cart">Ваша корзина пуста</p>
+        <a href="{% url 'store:index' %} class="continue-shopping">Продолжить покупки</a>
+    {% endif %}
+</div>
+{% endblock %}
+{% block scripts %}
+    <script src="{% static 'js/cart.js' %}"></script>
+{% endblock %}

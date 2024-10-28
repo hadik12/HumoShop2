@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <title>HumoShop</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="HumoShop - интернет магазин HumoSchool">
+    <meta name="keywords" content="одежда,футболки,худи,рубашки">
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/app.css' %}">
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+    {% block extra_css %}{% endblock %}
+</head>
+<body>
+    <div id="app">
+        <header class="header">
+            <div class="header__row">
+                <div class="header__container">
+                    <div class="header__group">
+                        <a href="{% url 'store:index' %}" class="text-logo">HumoShop</a>
+                    </div>
+                    <div class="header__group">
+                        <div class="header__profile">
+                            <a href="#" class="header__profile__cart">
+                                <div class="icon icon--cart"></div>
+                            </a>
+                            <div class="header__profile__login">
+                                <button class="custom-button">Войти</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- Остальная часть header -->
+        </header>
+
+        {% block content %}
+        {% endblock %}
+
+        <!-- Footer если есть -->
+    </div>
+{% block extra_js %}{% endblock %}
+</body>
+</html>
